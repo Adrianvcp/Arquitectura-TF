@@ -1,0 +1,328 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="urfindModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Administrador">
+    <Key>
+      <PropertyRef Name="idAdmin" />
+    </Key>
+    <Property Name="idAdmin" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Usuario" Relationship="Self.Administrador_Usuario" FromRole="Administrador" ToRole="Usuario" />
+    <NavigationProperty Name="ListaCompra" Relationship="Self.ListaCompra_Administrador" FromRole="Administrador" ToRole="ListaCompra" />
+    <NavigationProperty Name="Tienda" Relationship="Self.Tienda_Administrador" FromRole="Administrador" ToRole="Tienda" />
+  </EntityType>
+  <EntityType Name="Cliente">
+    <Key>
+      <PropertyRef Name="idCliente" />
+    </Key>
+    <Property Name="idCliente" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Usuario" Relationship="Self.Cliente_Usuario" FromRole="Cliente" ToRole="Usuario" />
+    <NavigationProperty Name="ListaCompra" Relationship="Self.ListaCompra_Cliente" FromRole="Cliente" ToRole="ListaCompra" />
+    <NavigationProperty Name="Producto" Relationship="Self.ListaFavoritoProducto" FromRole="Cliente" ToRole="Producto" />
+    <NavigationProperty Name="Tienda" Relationship="Self.ListaFavoritoTienda" FromRole="Cliente" ToRole="Tienda" />
+  </EntityType>
+  <EntityType Name="ListaCompra">
+    <Key>
+      <PropertyRef Name="idListaCompra" />
+    </Key>
+    <Property Name="idListaCompra" Type="Int32" Nullable="false" />
+    <Property Name="nNombre" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="idTienda" Type="Int32" />
+    <Property Name="idAdmin" Type="Int32" />
+    <Property Name="idCliente" Type="Int32" />
+    <NavigationProperty Name="Administrador" Relationship="Self.ListaCompra_Administrador" FromRole="ListaCompra" ToRole="Administrador" />
+    <NavigationProperty Name="Cliente" Relationship="Self.ListaCompra_Cliente" FromRole="ListaCompra" ToRole="Cliente" />
+    <NavigationProperty Name="Tienda" Relationship="Self.ListaCompra_Tienda" FromRole="ListaCompra" ToRole="Tienda" />
+    <NavigationProperty Name="ListaCompraXProducto" Relationship="Self.ListaCompraXProducto_ListaCompra" FromRole="ListaCompra" ToRole="ListaCompraXProducto" />
+  </EntityType>
+  <EntityType Name="ListaCompraXProducto">
+    <Key>
+      <PropertyRef Name="idListaCompra" />
+    </Key>
+    <Property Name="idListaCompra" Type="Int32" Nullable="false" />
+    <Property Name="idProducto" Type="Int32" Nullable="false" />
+    <Property Name="costoTotal" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="ListaCompra" Relationship="Self.ListaCompraXProducto_ListaCompra" FromRole="ListaCompraXProducto" ToRole="ListaCompra" />
+    <NavigationProperty Name="Producto" Relationship="Self.ListaCompraXProducto_Producto" FromRole="ListaCompraXProducto" ToRole="Producto" />
+  </EntityType>
+  <EntityType Name="Producto">
+    <Key>
+      <PropertyRef Name="idProducto" />
+    </Key>
+    <Property Name="idProducto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nNombre" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="dImagen" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="nPrecio" Type="String" MaxLength="7" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="ListaCompraXProducto" Relationship="Self.ListaCompraXProducto_Producto" FromRole="Producto" ToRole="ListaCompraXProducto" />
+    <NavigationProperty Name="ProductoXTienda" Relationship="Self.TiendaXProducto_Producto" FromRole="Producto" ToRole="ProductoXTienda" />
+    <NavigationProperty Name="Cliente" Relationship="Self.ListaFavoritoProducto" FromRole="Producto" ToRole="Cliente" />
+  </EntityType>
+  <EntityType Name="ProductoXTienda">
+    <Key>
+      <PropertyRef Name="idProducto" />
+      <PropertyRef Name="idTienda" />
+    </Key>
+    <Property Name="idProducto" Type="Int32" Nullable="false" />
+    <Property Name="tDisponibilidad" Type="Int32" Nullable="false" />
+    <Property Name="idTienda" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Producto" Relationship="Self.TiendaXProducto_Producto" FromRole="ProductoXTienda" ToRole="Producto" />
+    <NavigationProperty Name="Tienda" Relationship="Self.ProductoXTienda_Tienda" FromRole="ProductoXTienda" ToRole="Tienda" />
+    <NavigationProperty Name="Promocion" Relationship="Self.promocionxTiendaProducto" FromRole="ProductoXTienda" ToRole="Promocion" />
+  </EntityType>
+  <EntityType Name="Promocion">
+    <Key>
+      <PropertyRef Name="idPromocion" />
+    </Key>
+    <Property Name="idPromocion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NPromocion" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Descuento" Type="Decimal" Precision="5" Scale="2" Nullable="false" />
+    <NavigationProperty Name="ProductoXTienda" Relationship="Self.promocionxTiendaProducto" FromRole="Promocion" ToRole="ProductoXTienda" />
+  </EntityType>
+  <EntityType Name="prueba">
+    <Key>
+      <PropertyRef Name="idPr" />
+    </Key>
+    <Property Name="idPr" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nnombre" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Tienda">
+    <Key>
+      <PropertyRef Name="idTienda" />
+    </Key>
+    <Property Name="tRUC" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="dUbicacion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="tDescripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="tLogo" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="idTienda" Type="Int32" Nullable="false" />
+    <Property Name="idAdmin" Type="Int32" />
+    <Property Name="Permiso" Type="Boolean" />
+    <NavigationProperty Name="Administrador" Relationship="Self.Tienda_Administrador" FromRole="Tienda" ToRole="Administrador" />
+    <NavigationProperty Name="ListaCompra" Relationship="Self.ListaCompra_Tienda" FromRole="Tienda" ToRole="ListaCompra" />
+    <NavigationProperty Name="ProductoXTienda" Relationship="Self.ProductoXTienda_Tienda" FromRole="Tienda" ToRole="ProductoXTienda" />
+    <NavigationProperty Name="Usuario" Relationship="Self.Tienda_Usuario" FromRole="Tienda" ToRole="Usuario" />
+    <NavigationProperty Name="Cliente" Relationship="Self.ListaFavoritoTienda" FromRole="Tienda" ToRole="Cliente" />
+  </EntityType>
+  <EntityType Name="Usuario">
+    <Key>
+      <PropertyRef Name="idUsuario" />
+    </Key>
+    <Property Name="idUsuario" Type="Int32" Nullable="false" />
+    <Property Name="nCargo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="nNombre" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="tContraseña" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="tCorreo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Administrador" Relationship="Self.Administrador_Usuario" FromRole="Usuario" ToRole="Administrador" />
+    <NavigationProperty Name="Cliente" Relationship="Self.Cliente_Usuario" FromRole="Usuario" ToRole="Cliente" />
+    <NavigationProperty Name="Tienda" Relationship="Self.Tienda_Usuario" FromRole="Usuario" ToRole="Tienda" />
+  </EntityType>
+  <Association Name="Administrador_Usuario">
+    <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+    <End Role="Administrador" Type="Self.Administrador" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="idUsuario" />
+      </Principal>
+      <Dependent Role="Administrador">
+        <PropertyRef Name="idAdmin" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ListaCompra_Administrador">
+    <End Role="Administrador" Type="Self.Administrador" Multiplicity="0..1" />
+    <End Role="ListaCompra" Type="Self.ListaCompra" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Administrador">
+        <PropertyRef Name="idAdmin" />
+      </Principal>
+      <Dependent Role="ListaCompra">
+        <PropertyRef Name="idAdmin" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Tienda_Administrador">
+    <End Role="Administrador" Type="Self.Administrador" Multiplicity="0..1" />
+    <End Role="Tienda" Type="Self.Tienda" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Administrador">
+        <PropertyRef Name="idAdmin" />
+      </Principal>
+      <Dependent Role="Tienda">
+        <PropertyRef Name="idAdmin" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Cliente_Usuario">
+    <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+    <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="idUsuario" />
+      </Principal>
+      <Dependent Role="Cliente">
+        <PropertyRef Name="idCliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ListaCompra_Cliente">
+    <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
+    <End Role="ListaCompra" Type="Self.ListaCompra" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cliente">
+        <PropertyRef Name="idCliente" />
+      </Principal>
+      <Dependent Role="ListaCompra">
+        <PropertyRef Name="idCliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ListaCompra_Tienda">
+    <End Role="Tienda" Type="Self.Tienda" Multiplicity="0..1" />
+    <End Role="ListaCompra" Type="Self.ListaCompra" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tienda">
+        <PropertyRef Name="idTienda" />
+      </Principal>
+      <Dependent Role="ListaCompra">
+        <PropertyRef Name="idTienda" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ListaCompraXProducto_ListaCompra">
+    <End Role="ListaCompra" Type="Self.ListaCompra" Multiplicity="1" />
+    <End Role="ListaCompraXProducto" Type="Self.ListaCompraXProducto" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="ListaCompra">
+        <PropertyRef Name="idListaCompra" />
+      </Principal>
+      <Dependent Role="ListaCompraXProducto">
+        <PropertyRef Name="idListaCompra" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ListaCompraXProducto_Producto">
+    <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+    <End Role="ListaCompraXProducto" Type="Self.ListaCompraXProducto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Producto">
+        <PropertyRef Name="idProducto" />
+      </Principal>
+      <Dependent Role="ListaCompraXProducto">
+        <PropertyRef Name="idProducto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="TiendaXProducto_Producto">
+    <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+    <End Role="ProductoXTienda" Type="Self.ProductoXTienda" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Producto">
+        <PropertyRef Name="idProducto" />
+      </Principal>
+      <Dependent Role="ProductoXTienda">
+        <PropertyRef Name="idProducto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ProductoXTienda_Tienda">
+    <End Role="Tienda" Type="Self.Tienda" Multiplicity="1" />
+    <End Role="ProductoXTienda" Type="Self.ProductoXTienda" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tienda">
+        <PropertyRef Name="idTienda" />
+      </Principal>
+      <Dependent Role="ProductoXTienda">
+        <PropertyRef Name="idTienda" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Tienda_Usuario">
+    <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+    <End Role="Tienda" Type="Self.Tienda" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="idUsuario" />
+      </Principal>
+      <Dependent Role="Tienda">
+        <PropertyRef Name="idTienda" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ListaFavoritoProducto">
+    <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
+    <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
+  </Association>
+  <Association Name="ListaFavoritoTienda">
+    <End Role="Cliente" Type="Self.Cliente" Multiplicity="*" />
+    <End Role="Tienda" Type="Self.Tienda" Multiplicity="*" />
+  </Association>
+  <Association Name="promocionxTiendaProducto">
+    <End Role="ProductoXTienda" Type="Self.ProductoXTienda" Multiplicity="*" />
+    <End Role="Promocion" Type="Self.Promocion" Multiplicity="*" />
+  </Association>
+  <EntityContainer Name="urfindEntities4" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Administrador" EntityType="Self.Administrador" />
+    <EntitySet Name="Cliente" EntityType="Self.Cliente" />
+    <EntitySet Name="ListaCompra" EntityType="Self.ListaCompra" />
+    <EntitySet Name="ListaCompraXProducto" EntityType="Self.ListaCompraXProducto" />
+    <EntitySet Name="Producto" EntityType="Self.Producto" />
+    <EntitySet Name="ProductoXTienda" EntityType="Self.ProductoXTienda" />
+    <EntitySet Name="Promocion" EntityType="Self.Promocion" />
+    <EntitySet Name="prueba" EntityType="Self.prueba" />
+    <EntitySet Name="Tienda" EntityType="Self.Tienda" />
+    <EntitySet Name="Usuario" EntityType="Self.Usuario" />
+    <AssociationSet Name="Administrador_Usuario" Association="Self.Administrador_Usuario">
+      <End Role="Usuario" EntitySet="Usuario" />
+      <End Role="Administrador" EntitySet="Administrador" />
+    </AssociationSet>
+    <AssociationSet Name="ListaCompra_Administrador" Association="Self.ListaCompra_Administrador">
+      <End Role="Administrador" EntitySet="Administrador" />
+      <End Role="ListaCompra" EntitySet="ListaCompra" />
+    </AssociationSet>
+    <AssociationSet Name="Tienda_Administrador" Association="Self.Tienda_Administrador">
+      <End Role="Administrador" EntitySet="Administrador" />
+      <End Role="Tienda" EntitySet="Tienda" />
+    </AssociationSet>
+    <AssociationSet Name="Cliente_Usuario" Association="Self.Cliente_Usuario">
+      <End Role="Usuario" EntitySet="Usuario" />
+      <End Role="Cliente" EntitySet="Cliente" />
+    </AssociationSet>
+    <AssociationSet Name="ListaCompra_Cliente" Association="Self.ListaCompra_Cliente">
+      <End Role="Cliente" EntitySet="Cliente" />
+      <End Role="ListaCompra" EntitySet="ListaCompra" />
+    </AssociationSet>
+    <AssociationSet Name="ListaCompra_Tienda" Association="Self.ListaCompra_Tienda">
+      <End Role="Tienda" EntitySet="Tienda" />
+      <End Role="ListaCompra" EntitySet="ListaCompra" />
+    </AssociationSet>
+    <AssociationSet Name="ListaCompraXProducto_ListaCompra" Association="Self.ListaCompraXProducto_ListaCompra">
+      <End Role="ListaCompra" EntitySet="ListaCompra" />
+      <End Role="ListaCompraXProducto" EntitySet="ListaCompraXProducto" />
+    </AssociationSet>
+    <AssociationSet Name="ListaCompraXProducto_Producto" Association="Self.ListaCompraXProducto_Producto">
+      <End Role="Producto" EntitySet="Producto" />
+      <End Role="ListaCompraXProducto" EntitySet="ListaCompraXProducto" />
+    </AssociationSet>
+    <AssociationSet Name="TiendaXProducto_Producto" Association="Self.TiendaXProducto_Producto">
+      <End Role="Producto" EntitySet="Producto" />
+      <End Role="ProductoXTienda" EntitySet="ProductoXTienda" />
+    </AssociationSet>
+    <AssociationSet Name="ProductoXTienda_Tienda" Association="Self.ProductoXTienda_Tienda">
+      <End Role="Tienda" EntitySet="Tienda" />
+      <End Role="ProductoXTienda" EntitySet="ProductoXTienda" />
+    </AssociationSet>
+    <AssociationSet Name="Tienda_Usuario" Association="Self.Tienda_Usuario">
+      <End Role="Usuario" EntitySet="Usuario" />
+      <End Role="Tienda" EntitySet="Tienda" />
+    </AssociationSet>
+    <AssociationSet Name="ListaFavoritoProducto" Association="Self.ListaFavoritoProducto">
+      <End Role="Cliente" EntitySet="Cliente" />
+      <End Role="Producto" EntitySet="Producto" />
+    </AssociationSet>
+    <AssociationSet Name="ListaFavoritoTienda" Association="Self.ListaFavoritoTienda">
+      <End Role="Cliente" EntitySet="Cliente" />
+      <End Role="Tienda" EntitySet="Tienda" />
+    </AssociationSet>
+    <AssociationSet Name="promocionxTiendaProducto" Association="Self.promocionxTiendaProducto">
+      <End Role="ProductoXTienda" EntitySet="ProductoXTienda" />
+      <End Role="Promocion" EntitySet="Promocion" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

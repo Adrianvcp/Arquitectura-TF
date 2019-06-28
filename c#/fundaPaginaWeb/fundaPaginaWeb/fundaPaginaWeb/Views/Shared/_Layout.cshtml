@@ -1,0 +1,317 @@
+﻿@{
+
+    var tipo = (string)Session["tipo"];  // 0 = Principal 2= loginCorrectoAdmin 1= loginCorectoUser
+    var user = Session["userName"];
+    var id = (Int32)Session["idUser"];
+    var listfavorito = (IEnumerable<fundaPaginaWeb.Models.ListaFavoritoProducto>)Session["ListaFavoritos"];
+    //var listCom = (IEnumerable<fundaPaginaWeb.Models.ListaCompraXProducto>)Session["listCompra"];
+
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Encuentralo.pe</title>
+
+    <!-- Google font -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+
+    <!-- Bootstrap -->
+    <link type="text/css" rel="stylesheet" href="~/css/bootstrap.min.css" />
+
+    <!-- Slick -->
+    <link type="text/css" rel="stylesheet" href="~/css/slick.css" />
+    <link type="text/css" rel="stylesheet" href="~/css/slick-theme.css" />
+
+    <!-- nouislider -->
+    <link type="text/css" rel="stylesheet" href="~/css/nouislider.min.css" />
+
+    <!-- Font Awesome Icon -->
+    <link rel="stylesheet" href="~/css/font-awesome.min.css">
+
+    <!-- Custom stlylesheet -->
+    <link type="text/css" rel="stylesheet" href="~/css/style.css" />
+
+
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <!-- TOP HEADER -->
+        <div id="top-header">
+            <div class="container">
+                <ul class="header-links pull-left">
+                    <li><a href="#"><i class="fa fa-phone"></i> 986-141-854</a></li>
+                    <li><a href="#"><i class="fa fa-envelope-o"></i> email@email.com</a></li>
+                    <li><a href="#"><i class="fa fa-map-marker"></i> 111 Av.Pacifico</a></li>
+                </ul>
+                <ul class="header-links pull-right">
+                    @{
+                        if (id != 0)
+                        {
+                            <li><a href="#"><i class="fa fa-map-marker"></i>@user</a></li>
+                            <li><a href="@Url.Action("CerrarSesion", "Login")"><i class="fa fa-user-o"></i>Cerrar Sesion</a></li>
+                        }
+                        else
+                        {
+
+                            <li><a href="@Url.Action("Index", "Login")"><i class="fa fa-user-o"></i>Login</a></li>
+                        }
+                    }
+                </ul>
+            </div>
+        </div>
+        <!-- /TOP HEADER -->
+        <!-- MAIN HEADER -->
+        <div id="header">
+            <!-- container -->
+            <div class="container">
+                <!-- row -->
+                <div class="row">
+                    <!-- LOGO -->
+                    <div class="col-md-3">
+                        <div class="header-logo">
+                            <a href="#" class="logo">
+                                <!--<img src="./img/logo.png" alt="">  -->
+                            </a>
+                        </div>
+                    </div>
+                    <!-- /LOGO -->
+                    <!-- SEARCH BAR -->
+                    <div class="col-md-6">
+                        <div class="header-search">
+                            @using (Html.BeginForm("Buscar", "Home"))
+                            {
+                                <form>
+                                    <select class="input-select"></select>
+                                    @*@<input class="input" placeholder="Busca tu producto aqui">*@
+                                    @Html.TextBox("buscaProducto", null, new { @class = "input" })
+
+                                    <button class="search-btn">Buscar</button>
+                                </form>
+                            }
+                        </div>
+                    </div>
+                    <!-- /SEARCH BAR -->
+                    <!-- ACCOUNT -->
+                    <div class="col-md-3 clearfix">
+                        <div class="header-ctn">
+                            <!-- Wishlist -->
+
+                            <!-- /Wishlist -->
+                            <!-- Cart -->
+                            <div class="dropdown">
+
+                                @{
+                                    if (id != 0 && tipo != "Tienda")
+                                    {
+                                        <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                                            <i class="fa fa-heart-o"></i>
+                                            <span>Favoritos</span>
+                                            <div class="qty">@listfavorito.Count()</div>
+                                        </a>
+
+                                        if (listfavorito.Count() != 0)
+                                        {
+                                            <div class="cart-dropdown">
+                                                @foreach (var item in listfavorito)
+                                                {
+
+
+                                                    <div class="cart-list">
+                                                        <div class="product-widget">
+                                                            <div class="product-img">
+                                                                <img src=@item.Producto.dImagen alt="">
+                                                            </div>
+                                                            <div class="product-body">
+                                                                <h3 class="product-name"><a href="#">@item.Producto.nNombre</a></h3>
+                                                                <h3 class="product-name"><a href="#">@item.Producto.nPrecio</a></h3>
+
+                                                            </div>
+                                                            @Html.ActionLink(" ", "Eliminar", "Home", new { id = item.idListaFavorito }, new { @class = "delete fa fa-close" })
+                                                        </div>
+                                                    </div>
+                                                }
+                                            </div>
+                                        }
+                                    }
+                                }
+
+                            </div>
+                            <!-- /Cart -->
+                            <!-- Menu Toogle -->
+                            <div class="menu-toggle">
+                                <a href="#">
+                                    <i class="fa fa-bars"></i>
+                                    <span>Menu</span>
+                                </a>
+                            </div>
+                            <!-- /Menu Toogle -->
+                        </div>
+                    </div>
+                    <!-- /ACCOUNT -->
+                </div>
+                <!-- row -->
+            </div>
+            <!-- container -->
+        </div>
+        <!-- /MAIN HEADER -->
+    </header>
+    <!-- /HEADER -->
+    <!-- NAVIGATION -->
+    <nav id="navigation">
+        <!-- container -->
+        <div class="container">
+            <!-- responsive-nav -->
+            <div id="responsive-nav">
+                <!-- NAV -->
+                <ul class="main-nav nav navbar-nav">
+                    <li class="active">@Html.ActionLink("Inicio", "Index", "Home")</li>
+                    @{
+                        if (tipo == "Cliente")
+                        {
+                            <li>@Html.ActionLink("Celulares", "Buscar", "Home", new { buscaProducto = "Celular" }, null)</li>
+                            <li>@Html.ActionLink("Hogar", "Buscar", "Home", new { buscaProducto = "Hogar" }, null)</li>
+
+                            <li>@Html.ActionLink("Terraza", "Buscar", "Home", new { buscaProducto = "Terraza" }, null)</li>
+
+                            <li>@Html.ActionLink("Abarrotes", "Buscar", "Home", new { buscaProducto = "Abarrotes" }, null)</li>
+
+                            <li>@Html.ActionLink("Historial de Busqueda", "Index", "Historial")</li>
+
+                        }
+                        if (tipo == "Administrador")
+                        {
+                            <li>@Html.ActionLink("Solicitudes", "Solicitud", "Home", new { idUser = id }, null)</li>
+
+                            <li>@Html.ActionLink("Historial de Busqueda", "Index", "Historial")</li>
+                        }
+                        if (tipo == "Tienda")
+                        {
+                            <li>@Html.ActionLink("Productos", "Index", "Tienda")</li>
+
+                            <li>@Html.ActionLink("Historial de Busqueda", "Index", "Historial")</li>
+                        }
+
+
+
+                    }
+
+
+
+                </ul>
+                <!-- /NAV -->
+            </div>
+            <!-- /responsive-nav -->
+        </div>
+        <!-- /container -->
+    </nav>
+    <!-- /NAVIGATION -->
+
+
+
+
+    <div>
+        @RenderBody()
+        <hr />
+        <footer id="footer">
+            <!-- top footer -->
+            <div class="section">
+                <!-- container -->
+                <div class="container">
+                    <!-- row -->
+                    <div class="row">
+                        <div class="col-md-3 col-xs-6">
+                            <div class="footer">
+                                <h3 class="footer-title">About Us</h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut.</p>
+                                <ul class="footer-links">
+                                    <li><a href="#"><i class="fa fa-map-marker"></i>Avenida Pacifico 111</a></li>
+                                    <li><a href="#"><i class="fa fa-phone"></i>123456789</a></li>
+                                    <li><a href="#"><i class="fa fa-envelope-o"></i>email@email.com</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 col-xs-6">
+                            <div class="footer">
+                                <h3 class="footer-title">Categories</h3>
+                                <ul class="footer-links">
+                                    <li>@Html.ActionLink("Promociones", "Buscar", "Home", new { buscaProducto = "Promociones" },null)</li>
+                                    <li>@Html.ActionLink("Celulares", "Buscar", "Home", new { buscaProducto = "Celular" },null)</li>
+                                    <li>@Html.ActionLink("Hogar", "Buscar", "Home", new { buscaProducto = "Hogar" },null)</li>
+
+                                    <li>@Html.ActionLink("Terraza", "Buscar", "Home", new { buscaProducto = "Terraza" },null)</li>
+
+                                    <li>@Html.ActionLink("Abarrotes", "Buscar", "Home", new {buscaProducto="Abarrotes"},null)</li>
+
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="clearfix visible-xs"></div>
+
+                        <div class="col-md-3 col-xs-6">
+                            <div class="footer">
+                                <h3 class="footer-title">Information</h3>
+                                <ul class="footer-links">
+                                    <li>@Html.ActionLink("Promociones", "Buscar", "Home", new { buscaProducto = "Promociones" },null)</li>
+
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 col-xs-6">
+                            <div class="footer">
+                                <h3 class="footer-title">Service</h3>
+                                <ul class="footer-links">
+                                    <li>@Html.ActionLink("Registrarte", "Index", "Registr")</li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /row -->
+                </div>
+                <!-- /container -->
+            </div>
+            <!-- /top footer -->
+            <!-- bottom footer -->
+            <div id="bottom-footer" class="section">
+                <div class="container">
+                    <!-- row -->
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <ul class="footer-payments"></ul>
+                            <span class="copyright">
+                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                Copyright &copy;
+                                <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            </span>
+                        </div>
+                    </div>
+                    <!-- /row -->
+                </div>
+                <!-- /container -->
+            </div>
+            <!-- /bottom footer -->
+        </footer>
+        <!-- /FOOTER -->
+    </div>
+
+
+    <!-- jQuery Plugins -->
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/slick.min.js"></script>
+    <script src="~/js/nouislider.min.js"></script>
+    <script src="~/js/jquery.zoom.min.js"></script>
+    <script src="~/js/main.js"></script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

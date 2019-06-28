@@ -1,0 +1,717 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="fasbdModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Historial">
+          <Key>
+            <PropertyRef Name="idHistorial" />
+          </Key>
+          <Property Name="idHistorial" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idUsuario" Type="int" Nullable="false" />
+          <Property Name="nNomP" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ListaCompra">
+          <Key>
+            <PropertyRef Name="idListaCompra" />
+          </Key>
+          <Property Name="idListaCompra" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nNombre" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Usuario_idUsuario" Type="int" />
+          <Property Name="idTienda" Type="int" />
+        </EntityType>
+        <EntityType Name="ListaCompraXProducto">
+          <Key>
+            <PropertyRef Name="idListaCompra" />
+          </Key>
+          <Property Name="idListaCompra" Type="int" Nullable="false" />
+          <Property Name="idProducto" Type="int" Nullable="false" />
+          <Property Name="costoTotal" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ListaFavoritoProducto">
+          <Key>
+            <PropertyRef Name="idListaFavorito" />
+          </Key>
+          <Property Name="idListaFavorito" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idProducto" Type="int" Nullable="false" />
+          <Property Name="idUsuario" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Producto">
+          <Key>
+            <PropertyRef Name="idProducto" />
+          </Key>
+          <Property Name="idProducto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nNombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="dImagen" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="nPrecio" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProductoXTienda">
+          <Key>
+            <PropertyRef Name="idProducto" />
+          </Key>
+          <Property Name="idProducto" Type="int" Nullable="false" />
+          <Property Name="tDisponibilidad" Type="int" Nullable="false" />
+          <Property Name="Tienda_idTienda" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Promocion">
+          <Key>
+            <PropertyRef Name="idPromocion" />
+          </Key>
+          <Property Name="idPromocion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NPromocion" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="Descuento" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="promocionxTiendaProducto">
+          <Key>
+            <PropertyRef Name="idPromocionTiendaProducto" />
+          </Key>
+          <Property Name="idPromocionTiendaProducto" Type="int" Nullable="false" />
+          <Property Name="idPromocion" Type="int" Nullable="false" />
+          <Property Name="ProductoXTienda_idProducto" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tienda">
+          <Key>
+            <PropertyRef Name="idTienda" />
+          </Key>
+          <Property Name="idTienda" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tRUC" Type="varchar" MaxLength="12" Nullable="false" />
+          <Property Name="dUbicacion" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="tDescripcion" Type="varchar" MaxLength="100" />
+          <Property Name="tCorreo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="tcontrasena" Type="varchar" MaxLength="8" />
+          <Property Name="tLogo" Type="image" />
+          <Property Name="Permiso" Type="bit" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="idUsuario" />
+          </Key>
+          <Property Name="idUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nCargo" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="nNombre" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="tContrasen" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="tCorreo" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <Association Name="Historial_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Historial" Type="Self.Historial" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="idUsuario" />
+            </Principal>
+            <Dependent Role="Historial">
+              <PropertyRef Name="idUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ListaCompra_Tienda">
+          <End Role="Tienda" Type="Self.Tienda" Multiplicity="0..1" />
+          <End Role="ListaCompra" Type="Self.ListaCompra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tienda">
+              <PropertyRef Name="idTienda" />
+            </Principal>
+            <Dependent Role="ListaCompra">
+              <PropertyRef Name="idTienda" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ListaCompra_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="ListaCompra" Type="Self.ListaCompra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="idUsuario" />
+            </Principal>
+            <Dependent Role="ListaCompra">
+              <PropertyRef Name="Usuario_idUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ListaCompraXProducto_ListaCompra">
+          <End Role="ListaCompra" Type="Self.ListaCompra" Multiplicity="1" />
+          <End Role="ListaCompraXProducto" Type="Self.ListaCompraXProducto" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="ListaCompra">
+              <PropertyRef Name="idListaCompra" />
+            </Principal>
+            <Dependent Role="ListaCompraXProducto">
+              <PropertyRef Name="idListaCompra" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ListaCompraXProducto_Producto">
+          <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+          <End Role="ListaCompraXProducto" Type="Self.ListaCompraXProducto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="idProducto" />
+            </Principal>
+            <Dependent Role="ListaCompraXProducto">
+              <PropertyRef Name="idProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ListaFavoritoProducto_Producto">
+          <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+          <End Role="ListaFavoritoProducto" Type="Self.ListaFavoritoProducto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="idProducto" />
+            </Principal>
+            <Dependent Role="ListaFavoritoProducto">
+              <PropertyRef Name="idProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ListaFavoritoProducto_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="ListaFavoritoProducto" Type="Self.ListaFavoritoProducto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="idUsuario" />
+            </Principal>
+            <Dependent Role="ListaFavoritoProducto">
+              <PropertyRef Name="idUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ProductoXTienda_Tienda">
+          <End Role="Tienda" Type="Self.Tienda" Multiplicity="1" />
+          <End Role="ProductoXTienda" Type="Self.ProductoXTienda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tienda">
+              <PropertyRef Name="idTienda" />
+            </Principal>
+            <Dependent Role="ProductoXTienda">
+              <PropertyRef Name="Tienda_idTienda" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="promocionxTiendaProducto_ProductoXTienda">
+          <End Role="ProductoXTienda" Type="Self.ProductoXTienda" Multiplicity="1" />
+          <End Role="promocionxTiendaProducto" Type="Self.promocionxTiendaProducto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductoXTienda">
+              <PropertyRef Name="idProducto" />
+            </Principal>
+            <Dependent Role="promocionxTiendaProducto">
+              <PropertyRef Name="ProductoXTienda_idProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Table_12_Promocion">
+          <End Role="Promocion" Type="Self.Promocion" Multiplicity="1" />
+          <End Role="promocionxTiendaProducto" Type="Self.promocionxTiendaProducto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Promocion">
+              <PropertyRef Name="idPromocion" />
+            </Principal>
+            <Dependent Role="promocionxTiendaProducto">
+              <PropertyRef Name="idPromocion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TiendaXProducto_Producto">
+          <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+          <End Role="ProductoXTienda" Type="Self.ProductoXTienda" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="idProducto" />
+            </Principal>
+            <Dependent Role="ProductoXTienda">
+              <PropertyRef Name="idProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="fasbdModelStoreContainer">
+          <EntitySet Name="Historial" EntityType="Self.Historial" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ListaCompra" EntityType="Self.ListaCompra" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ListaCompraXProducto" EntityType="Self.ListaCompraXProducto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ListaFavoritoProducto" EntityType="Self.ListaFavoritoProducto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Producto" EntityType="Self.Producto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductoXTienda" EntityType="Self.ProductoXTienda" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Promocion" EntityType="Self.Promocion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="promocionxTiendaProducto" EntityType="Self.promocionxTiendaProducto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tienda" EntityType="Self.Tienda" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="Historial_Usuario" Association="Self.Historial_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Historial" EntitySet="Historial" />
+          </AssociationSet>
+          <AssociationSet Name="ListaCompra_Tienda" Association="Self.ListaCompra_Tienda">
+            <End Role="Tienda" EntitySet="Tienda" />
+            <End Role="ListaCompra" EntitySet="ListaCompra" />
+          </AssociationSet>
+          <AssociationSet Name="ListaCompra_Usuario" Association="Self.ListaCompra_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="ListaCompra" EntitySet="ListaCompra" />
+          </AssociationSet>
+          <AssociationSet Name="ListaCompraXProducto_ListaCompra" Association="Self.ListaCompraXProducto_ListaCompra">
+            <End Role="ListaCompra" EntitySet="ListaCompra" />
+            <End Role="ListaCompraXProducto" EntitySet="ListaCompraXProducto" />
+          </AssociationSet>
+          <AssociationSet Name="ListaCompraXProducto_Producto" Association="Self.ListaCompraXProducto_Producto">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="ListaCompraXProducto" EntitySet="ListaCompraXProducto" />
+          </AssociationSet>
+          <AssociationSet Name="ListaFavoritoProducto_Producto" Association="Self.ListaFavoritoProducto_Producto">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="ListaFavoritoProducto" EntitySet="ListaFavoritoProducto" />
+          </AssociationSet>
+          <AssociationSet Name="ListaFavoritoProducto_Usuario" Association="Self.ListaFavoritoProducto_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="ListaFavoritoProducto" EntitySet="ListaFavoritoProducto" />
+          </AssociationSet>
+          <AssociationSet Name="ProductoXTienda_Tienda" Association="Self.ProductoXTienda_Tienda">
+            <End Role="Tienda" EntitySet="Tienda" />
+            <End Role="ProductoXTienda" EntitySet="ProductoXTienda" />
+          </AssociationSet>
+          <AssociationSet Name="promocionxTiendaProducto_ProductoXTienda" Association="Self.promocionxTiendaProducto_ProductoXTienda">
+            <End Role="ProductoXTienda" EntitySet="ProductoXTienda" />
+            <End Role="promocionxTiendaProducto" EntitySet="promocionxTiendaProducto" />
+          </AssociationSet>
+          <AssociationSet Name="Table_12_Promocion" Association="Self.Table_12_Promocion">
+            <End Role="Promocion" EntitySet="Promocion" />
+            <End Role="promocionxTiendaProducto" EntitySet="promocionxTiendaProducto" />
+          </AssociationSet>
+          <AssociationSet Name="TiendaXProducto_Producto" Association="Self.TiendaXProducto_Producto">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="ProductoXTienda" EntitySet="ProductoXTienda" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="fasbdModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Historial">
+          <Key>
+            <PropertyRef Name="idHistorial" />
+          </Key>
+          <Property Name="idHistorial" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idUsuario" Type="Int32" Nullable="false" />
+          <Property Name="nNomP" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Usuario" Relationship="Self.Historial_Usuario" FromRole="Historial" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="ListaCompra">
+          <Key>
+            <PropertyRef Name="idListaCompra" />
+          </Key>
+          <Property Name="idListaCompra" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nNombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Usuario_idUsuario" Type="Int32" />
+          <Property Name="idTienda" Type="Int32" />
+          <NavigationProperty Name="Tienda" Relationship="Self.ListaCompra_Tienda" FromRole="ListaCompra" ToRole="Tienda" />
+          <NavigationProperty Name="Usuario" Relationship="Self.ListaCompra_Usuario" FromRole="ListaCompra" ToRole="Usuario" />
+          <NavigationProperty Name="ListaCompraXProducto" Relationship="Self.ListaCompraXProducto_ListaCompra" FromRole="ListaCompra" ToRole="ListaCompraXProducto" />
+        </EntityType>
+        <EntityType Name="ListaCompraXProducto">
+          <Key>
+            <PropertyRef Name="idListaCompra" />
+          </Key>
+          <Property Name="idListaCompra" Type="Int32" Nullable="false" />
+          <Property Name="idProducto" Type="Int32" Nullable="false" />
+          <Property Name="costoTotal" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ListaCompra" Relationship="Self.ListaCompraXProducto_ListaCompra" FromRole="ListaCompraXProducto" ToRole="ListaCompra" />
+          <NavigationProperty Name="Producto" Relationship="Self.ListaCompraXProducto_Producto" FromRole="ListaCompraXProducto" ToRole="Producto" />
+        </EntityType>
+        <EntityType Name="ListaFavoritoProducto">
+          <Key>
+            <PropertyRef Name="idListaFavorito" />
+          </Key>
+          <Property Name="idListaFavorito" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idProducto" Type="Int32" Nullable="false" />
+          <Property Name="idUsuario" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Producto" Relationship="Self.ListaFavoritoProducto_Producto" FromRole="ListaFavoritoProducto" ToRole="Producto" />
+          <NavigationProperty Name="Usuario" Relationship="Self.ListaFavoritoProducto_Usuario" FromRole="ListaFavoritoProducto" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Producto">
+          <Key>
+            <PropertyRef Name="idProducto" />
+          </Key>
+          <Property Name="idProducto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nNombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="dImagen" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nPrecio" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="ListaCompraXProducto" Relationship="Self.ListaCompraXProducto_Producto" FromRole="Producto" ToRole="ListaCompraXProducto" />
+          <NavigationProperty Name="ListaFavoritoProducto" Relationship="Self.ListaFavoritoProducto_Producto" FromRole="Producto" ToRole="ListaFavoritoProducto" />
+          <NavigationProperty Name="ProductoXTienda" Relationship="Self.TiendaXProducto_Producto" FromRole="Producto" ToRole="ProductoXTienda" />
+        </EntityType>
+        <EntityType Name="ProductoXTienda">
+          <Key>
+            <PropertyRef Name="idProducto" />
+          </Key>
+          <Property Name="idProducto" Type="Int32" Nullable="false" />
+          <Property Name="tDisponibilidad" Type="Int32" Nullable="false" />
+          <Property Name="Tienda_idTienda" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Producto" Relationship="Self.TiendaXProducto_Producto" FromRole="ProductoXTienda" ToRole="Producto" />
+          <NavigationProperty Name="Tienda" Relationship="Self.ProductoXTienda_Tienda" FromRole="ProductoXTienda" ToRole="Tienda" />
+          <NavigationProperty Name="promocionxTiendaProducto" Relationship="Self.promocionxTiendaProducto_ProductoXTienda" FromRole="ProductoXTienda" ToRole="promocionxTiendaProducto" />
+        </EntityType>
+        <EntityType Name="Promocion">
+          <Key>
+            <PropertyRef Name="idPromocion" />
+          </Key>
+          <Property Name="idPromocion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NPromocion" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Descuento" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="promocionxTiendaProducto" Relationship="Self.Table_12_Promocion" FromRole="Promocion" ToRole="promocionxTiendaProducto" />
+        </EntityType>
+        <EntityType Name="promocionxTiendaProducto">
+          <Key>
+            <PropertyRef Name="idPromocionTiendaProducto" />
+          </Key>
+          <Property Name="idPromocionTiendaProducto" Type="Int32" Nullable="false" />
+          <Property Name="idPromocion" Type="Int32" Nullable="false" />
+          <Property Name="ProductoXTienda_idProducto" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ProductoXTienda" Relationship="Self.promocionxTiendaProducto_ProductoXTienda" FromRole="promocionxTiendaProducto" ToRole="ProductoXTienda" />
+          <NavigationProperty Name="Promocion" Relationship="Self.Table_12_Promocion" FromRole="promocionxTiendaProducto" ToRole="Promocion" />
+        </EntityType>
+        <EntityType Name="Tienda">
+          <Key>
+            <PropertyRef Name="idTienda" />
+          </Key>
+          <Property Name="idTienda" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tRUC" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="dUbicacion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tDescripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="tCorreo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tcontrasena" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="tLogo" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Permiso" Type="Boolean" />
+          <NavigationProperty Name="ListaCompra" Relationship="Self.ListaCompra_Tienda" FromRole="Tienda" ToRole="ListaCompra" />
+          <NavigationProperty Name="ProductoXTienda" Relationship="Self.ProductoXTienda_Tienda" FromRole="Tienda" ToRole="ProductoXTienda" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="idUsuario" />
+          </Key>
+          <Property Name="idUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nCargo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nNombre" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="tContrasen" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tCorreo" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Historial" Relationship="Self.Historial_Usuario" FromRole="Usuario" ToRole="Historial" />
+          <NavigationProperty Name="ListaCompra" Relationship="Self.ListaCompra_Usuario" FromRole="Usuario" ToRole="ListaCompra" />
+          <NavigationProperty Name="ListaFavoritoProducto" Relationship="Self.ListaFavoritoProducto_Usuario" FromRole="Usuario" ToRole="ListaFavoritoProducto" />
+        </EntityType>
+        <Association Name="Historial_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Historial" Type="Self.Historial" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="idUsuario" />
+            </Principal>
+            <Dependent Role="Historial">
+              <PropertyRef Name="idUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ListaCompra_Tienda">
+          <End Role="Tienda" Type="Self.Tienda" Multiplicity="0..1" />
+          <End Role="ListaCompra" Type="Self.ListaCompra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tienda">
+              <PropertyRef Name="idTienda" />
+            </Principal>
+            <Dependent Role="ListaCompra">
+              <PropertyRef Name="idTienda" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ListaCompra_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="ListaCompra" Type="Self.ListaCompra" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="idUsuario" />
+            </Principal>
+            <Dependent Role="ListaCompra">
+              <PropertyRef Name="Usuario_idUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ListaCompraXProducto_ListaCompra">
+          <End Role="ListaCompra" Type="Self.ListaCompra" Multiplicity="1" />
+          <End Role="ListaCompraXProducto" Type="Self.ListaCompraXProducto" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="ListaCompra">
+              <PropertyRef Name="idListaCompra" />
+            </Principal>
+            <Dependent Role="ListaCompraXProducto">
+              <PropertyRef Name="idListaCompra" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ListaCompraXProducto_Producto">
+          <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+          <End Role="ListaCompraXProducto" Type="Self.ListaCompraXProducto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="idProducto" />
+            </Principal>
+            <Dependent Role="ListaCompraXProducto">
+              <PropertyRef Name="idProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ListaFavoritoProducto_Producto">
+          <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+          <End Role="ListaFavoritoProducto" Type="Self.ListaFavoritoProducto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="idProducto" />
+            </Principal>
+            <Dependent Role="ListaFavoritoProducto">
+              <PropertyRef Name="idProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ListaFavoritoProducto_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="ListaFavoritoProducto" Type="Self.ListaFavoritoProducto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="idUsuario" />
+            </Principal>
+            <Dependent Role="ListaFavoritoProducto">
+              <PropertyRef Name="idUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TiendaXProducto_Producto">
+          <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+          <End Role="ProductoXTienda" Type="Self.ProductoXTienda" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="idProducto" />
+            </Principal>
+            <Dependent Role="ProductoXTienda">
+              <PropertyRef Name="idProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ProductoXTienda_Tienda">
+          <End Role="Tienda" Type="Self.Tienda" Multiplicity="1" />
+          <End Role="ProductoXTienda" Type="Self.ProductoXTienda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tienda">
+              <PropertyRef Name="idTienda" />
+            </Principal>
+            <Dependent Role="ProductoXTienda">
+              <PropertyRef Name="Tienda_idTienda" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="promocionxTiendaProducto_ProductoXTienda">
+          <End Role="ProductoXTienda" Type="Self.ProductoXTienda" Multiplicity="1" />
+          <End Role="promocionxTiendaProducto" Type="Self.promocionxTiendaProducto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductoXTienda">
+              <PropertyRef Name="idProducto" />
+            </Principal>
+            <Dependent Role="promocionxTiendaProducto">
+              <PropertyRef Name="ProductoXTienda_idProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Table_12_Promocion">
+          <End Role="Promocion" Type="Self.Promocion" Multiplicity="1" />
+          <End Role="promocionxTiendaProducto" Type="Self.promocionxTiendaProducto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Promocion">
+              <PropertyRef Name="idPromocion" />
+            </Principal>
+            <Dependent Role="promocionxTiendaProducto">
+              <PropertyRef Name="idPromocion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="fasbdEntities7" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Historial" EntityType="Self.Historial" />
+          <EntitySet Name="ListaCompra" EntityType="Self.ListaCompra" />
+          <EntitySet Name="ListaCompraXProducto" EntityType="Self.ListaCompraXProducto" />
+          <EntitySet Name="ListaFavoritoProducto" EntityType="Self.ListaFavoritoProducto" />
+          <EntitySet Name="Producto" EntityType="Self.Producto" />
+          <EntitySet Name="ProductoXTienda" EntityType="Self.ProductoXTienda" />
+          <EntitySet Name="Promocion" EntityType="Self.Promocion" />
+          <EntitySet Name="promocionxTiendaProducto" EntityType="Self.promocionxTiendaProducto" />
+          <EntitySet Name="Tienda" EntityType="Self.Tienda" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" />
+          <AssociationSet Name="Historial_Usuario" Association="Self.Historial_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Historial" EntitySet="Historial" />
+          </AssociationSet>
+          <AssociationSet Name="ListaCompra_Tienda" Association="Self.ListaCompra_Tienda">
+            <End Role="Tienda" EntitySet="Tienda" />
+            <End Role="ListaCompra" EntitySet="ListaCompra" />
+          </AssociationSet>
+          <AssociationSet Name="ListaCompra_Usuario" Association="Self.ListaCompra_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="ListaCompra" EntitySet="ListaCompra" />
+          </AssociationSet>
+          <AssociationSet Name="ListaCompraXProducto_ListaCompra" Association="Self.ListaCompraXProducto_ListaCompra">
+            <End Role="ListaCompra" EntitySet="ListaCompra" />
+            <End Role="ListaCompraXProducto" EntitySet="ListaCompraXProducto" />
+          </AssociationSet>
+          <AssociationSet Name="ListaCompraXProducto_Producto" Association="Self.ListaCompraXProducto_Producto">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="ListaCompraXProducto" EntitySet="ListaCompraXProducto" />
+          </AssociationSet>
+          <AssociationSet Name="ListaFavoritoProducto_Producto" Association="Self.ListaFavoritoProducto_Producto">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="ListaFavoritoProducto" EntitySet="ListaFavoritoProducto" />
+          </AssociationSet>
+          <AssociationSet Name="ListaFavoritoProducto_Usuario" Association="Self.ListaFavoritoProducto_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="ListaFavoritoProducto" EntitySet="ListaFavoritoProducto" />
+          </AssociationSet>
+          <AssociationSet Name="TiendaXProducto_Producto" Association="Self.TiendaXProducto_Producto">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="ProductoXTienda" EntitySet="ProductoXTienda" />
+          </AssociationSet>
+          <AssociationSet Name="ProductoXTienda_Tienda" Association="Self.ProductoXTienda_Tienda">
+            <End Role="Tienda" EntitySet="Tienda" />
+            <End Role="ProductoXTienda" EntitySet="ProductoXTienda" />
+          </AssociationSet>
+          <AssociationSet Name="promocionxTiendaProducto_ProductoXTienda" Association="Self.promocionxTiendaProducto_ProductoXTienda">
+            <End Role="ProductoXTienda" EntitySet="ProductoXTienda" />
+            <End Role="promocionxTiendaProducto" EntitySet="promocionxTiendaProducto" />
+          </AssociationSet>
+          <AssociationSet Name="Table_12_Promocion" Association="Self.Table_12_Promocion">
+            <End Role="Promocion" EntitySet="Promocion" />
+            <End Role="promocionxTiendaProducto" EntitySet="promocionxTiendaProducto" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="fasbdModelStoreContainer" CdmEntityContainer="fasbdEntities7">
+          <EntitySetMapping Name="Historial">
+            <EntityTypeMapping TypeName="fasbdModel.Historial">
+              <MappingFragment StoreEntitySet="Historial">
+                <ScalarProperty Name="idHistorial" ColumnName="idHistorial" />
+                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+                <ScalarProperty Name="nNomP" ColumnName="nNomP" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ListaCompra">
+            <EntityTypeMapping TypeName="fasbdModel.ListaCompra">
+              <MappingFragment StoreEntitySet="ListaCompra">
+                <ScalarProperty Name="idListaCompra" ColumnName="idListaCompra" />
+                <ScalarProperty Name="nNombre" ColumnName="nNombre" />
+                <ScalarProperty Name="Usuario_idUsuario" ColumnName="Usuario_idUsuario" />
+                <ScalarProperty Name="idTienda" ColumnName="idTienda" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ListaCompraXProducto">
+            <EntityTypeMapping TypeName="fasbdModel.ListaCompraXProducto">
+              <MappingFragment StoreEntitySet="ListaCompraXProducto">
+                <ScalarProperty Name="idListaCompra" ColumnName="idListaCompra" />
+                <ScalarProperty Name="idProducto" ColumnName="idProducto" />
+                <ScalarProperty Name="costoTotal" ColumnName="costoTotal" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ListaFavoritoProducto">
+            <EntityTypeMapping TypeName="fasbdModel.ListaFavoritoProducto">
+              <MappingFragment StoreEntitySet="ListaFavoritoProducto">
+                <ScalarProperty Name="idListaFavorito" ColumnName="idListaFavorito" />
+                <ScalarProperty Name="idProducto" ColumnName="idProducto" />
+                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Producto">
+            <EntityTypeMapping TypeName="fasbdModel.Producto">
+              <MappingFragment StoreEntitySet="Producto">
+                <ScalarProperty Name="idProducto" ColumnName="idProducto" />
+                <ScalarProperty Name="nNombre" ColumnName="nNombre" />
+                <ScalarProperty Name="dImagen" ColumnName="dImagen" />
+                <ScalarProperty Name="nPrecio" ColumnName="nPrecio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductoXTienda">
+            <EntityTypeMapping TypeName="fasbdModel.ProductoXTienda">
+              <MappingFragment StoreEntitySet="ProductoXTienda">
+                <ScalarProperty Name="idProducto" ColumnName="idProducto" />
+                <ScalarProperty Name="tDisponibilidad" ColumnName="tDisponibilidad" />
+                <ScalarProperty Name="Tienda_idTienda" ColumnName="Tienda_idTienda" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Promocion">
+            <EntityTypeMapping TypeName="fasbdModel.Promocion">
+              <MappingFragment StoreEntitySet="Promocion">
+                <ScalarProperty Name="idPromocion" ColumnName="idPromocion" />
+                <ScalarProperty Name="NPromocion" ColumnName="NPromocion" />
+                <ScalarProperty Name="Descuento" ColumnName="Descuento" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="promocionxTiendaProducto">
+            <EntityTypeMapping TypeName="fasbdModel.promocionxTiendaProducto">
+              <MappingFragment StoreEntitySet="promocionxTiendaProducto">
+                <ScalarProperty Name="idPromocionTiendaProducto" ColumnName="idPromocionTiendaProducto" />
+                <ScalarProperty Name="idPromocion" ColumnName="idPromocion" />
+                <ScalarProperty Name="ProductoXTienda_idProducto" ColumnName="ProductoXTienda_idProducto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tienda">
+            <EntityTypeMapping TypeName="fasbdModel.Tienda">
+              <MappingFragment StoreEntitySet="Tienda">
+                <ScalarProperty Name="idTienda" ColumnName="idTienda" />
+                <ScalarProperty Name="tRUC" ColumnName="tRUC" />
+                <ScalarProperty Name="dUbicacion" ColumnName="dUbicacion" />
+                <ScalarProperty Name="tDescripcion" ColumnName="tDescripcion" />
+                <ScalarProperty Name="tCorreo" ColumnName="tCorreo" />
+                <ScalarProperty Name="tcontrasena" ColumnName="tcontrasena" />
+                <ScalarProperty Name="tLogo" ColumnName="tLogo" />
+                <ScalarProperty Name="Permiso" ColumnName="Permiso" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuario">
+            <EntityTypeMapping TypeName="fasbdModel.Usuario">
+              <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+                <ScalarProperty Name="nCargo" ColumnName="nCargo" />
+                <ScalarProperty Name="nNombre" ColumnName="nNombre" />
+                <ScalarProperty Name="tContrasen" ColumnName="tContrasen" />
+                <ScalarProperty Name="tCorreo" ColumnName="tCorreo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
