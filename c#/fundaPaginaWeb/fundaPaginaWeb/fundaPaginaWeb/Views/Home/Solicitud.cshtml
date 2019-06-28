@@ -1,0 +1,46 @@
+﻿@model IEnumerable<fundaPaginaWeb.Models.Tienda>
+
+@{
+    ViewBag.Title = "Solicitud";
+}
+
+
+    <section id="tabs" class="project-tab">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    
+                    <div style="margin-top:50px" id="nav-home" role="tabpanel" >
+                        <table class="table" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>RUC</th>
+                                    <th>Ubicaciom</th>
+                                    <th>Descripcion</th>
+                                    <th>Permiso</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                 {
+                                    <tr>
+                                        <td>@item.tRUC</td>
+                                        <td>@item.dUbicacion</td>
+                                        <td>@item.tCorreo</td>
+                                        
+                                        <td>@Html.ActionLink("Aceptar", "Aceptar","Home",new { corrAdmin = "pedro.velacc@gmail.com" ,corrTienda = @item.tCorreo,idtienda = @item.idTienda},null)
+                                        | @Html.ActionLink("Rechazar", "Rechazado", "Home", new { corrAdmin = "pedro.velacc@gmail.com", corrTienda = @item.tCorreo, idtienda = @item.idTienda }, null)</td>
+
+                                    </tr>
+                                 }
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+
+

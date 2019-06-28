@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="fasbdModelStoreContainer" CdmEntityContainer="fasbdEntities7">
+    <EntitySetMapping Name="Historial">
+      <EntityTypeMapping TypeName="fasbdModel.Historial">
+        <MappingFragment StoreEntitySet="Historial">
+          <ScalarProperty Name="idHistorial" ColumnName="idHistorial" />
+          <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+          <ScalarProperty Name="nNomP" ColumnName="nNomP" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ListaCompra">
+      <EntityTypeMapping TypeName="fasbdModel.ListaCompra">
+        <MappingFragment StoreEntitySet="ListaCompra">
+          <ScalarProperty Name="idListaCompra" ColumnName="idListaCompra" />
+          <ScalarProperty Name="nNombre" ColumnName="nNombre" />
+          <ScalarProperty Name="Usuario_idUsuario" ColumnName="Usuario_idUsuario" />
+          <ScalarProperty Name="idTienda" ColumnName="idTienda" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ListaCompraXProducto">
+      <EntityTypeMapping TypeName="fasbdModel.ListaCompraXProducto">
+        <MappingFragment StoreEntitySet="ListaCompraXProducto">
+          <ScalarProperty Name="idListaCompra" ColumnName="idListaCompra" />
+          <ScalarProperty Name="idProducto" ColumnName="idProducto" />
+          <ScalarProperty Name="costoTotal" ColumnName="costoTotal" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ListaFavoritoProducto">
+      <EntityTypeMapping TypeName="fasbdModel.ListaFavoritoProducto">
+        <MappingFragment StoreEntitySet="ListaFavoritoProducto">
+          <ScalarProperty Name="idListaFavorito" ColumnName="idListaFavorito" />
+          <ScalarProperty Name="idProducto" ColumnName="idProducto" />
+          <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Producto">
+      <EntityTypeMapping TypeName="fasbdModel.Producto">
+        <MappingFragment StoreEntitySet="Producto">
+          <ScalarProperty Name="idProducto" ColumnName="idProducto" />
+          <ScalarProperty Name="nNombre" ColumnName="nNombre" />
+          <ScalarProperty Name="dImagen" ColumnName="dImagen" />
+          <ScalarProperty Name="nPrecio" ColumnName="nPrecio" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProductoXTienda">
+      <EntityTypeMapping TypeName="fasbdModel.ProductoXTienda">
+        <MappingFragment StoreEntitySet="ProductoXTienda">
+          <ScalarProperty Name="idProducto" ColumnName="idProducto" />
+          <ScalarProperty Name="tDisponibilidad" ColumnName="tDisponibilidad" />
+          <ScalarProperty Name="Tienda_idTienda" ColumnName="Tienda_idTienda" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Promocion">
+      <EntityTypeMapping TypeName="fasbdModel.Promocion">
+        <MappingFragment StoreEntitySet="Promocion">
+          <ScalarProperty Name="idPromocion" ColumnName="idPromocion" />
+          <ScalarProperty Name="NPromocion" ColumnName="NPromocion" />
+          <ScalarProperty Name="Descuento" ColumnName="Descuento" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="promocionxTiendaProducto">
+      <EntityTypeMapping TypeName="fasbdModel.promocionxTiendaProducto">
+        <MappingFragment StoreEntitySet="promocionxTiendaProducto">
+          <ScalarProperty Name="idPromocionTiendaProducto" ColumnName="idPromocionTiendaProducto" />
+          <ScalarProperty Name="idPromocion" ColumnName="idPromocion" />
+          <ScalarProperty Name="ProductoXTienda_idProducto" ColumnName="ProductoXTienda_idProducto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tienda">
+      <EntityTypeMapping TypeName="fasbdModel.Tienda">
+        <MappingFragment StoreEntitySet="Tienda">
+          <ScalarProperty Name="idTienda" ColumnName="idTienda" />
+          <ScalarProperty Name="tRUC" ColumnName="tRUC" />
+          <ScalarProperty Name="dUbicacion" ColumnName="dUbicacion" />
+          <ScalarProperty Name="tDescripcion" ColumnName="tDescripcion" />
+          <ScalarProperty Name="tCorreo" ColumnName="tCorreo" />
+          <ScalarProperty Name="tcontrasena" ColumnName="tcontrasena" />
+          <ScalarProperty Name="tLogo" ColumnName="tLogo" />
+          <ScalarProperty Name="Permiso" ColumnName="Permiso" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Usuario">
+      <EntityTypeMapping TypeName="fasbdModel.Usuario">
+        <MappingFragment StoreEntitySet="Usuario">
+          <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+          <ScalarProperty Name="nCargo" ColumnName="nCargo" />
+          <ScalarProperty Name="nNombre" ColumnName="nNombre" />
+          <ScalarProperty Name="tContrasen" ColumnName="tContrasen" />
+          <ScalarProperty Name="tCorreo" ColumnName="tCorreo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,75 @@
+﻿@model IEnumerable<fundaPaginaWeb.Models.ProductoXTienda>
+
+@{
+    ViewBag.Title = "Search";
+}
+
+<!-- SECTION -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+
+            <!-- STORE -->
+            <div id="store" class="col-md-9">
+
+                <!-- store products -->
+                <div class="row">
+
+                    @{
+                        foreach (var item in Model)
+                        {
+                            <!-- product -->
+
+                            <div class="col-md-4 col-xs-6">
+                                <div class="product">
+                                    <form action="#" method="post">
+                                        <div class="product-img">
+                                            <img src=@item.Producto.dImagen alt="">
+                                        </div>
+                                        <div class="product-body">
+                                            <p class="product-category">Category</p>
+                                            <h3 class="product-name"><a href="#">@item.Producto.nNombre</a></h3>
+                                            <h4 class="product-price">@item.Producto.nPrecio</h4>
+
+                                        </div>
+                                        <div class="add-to-cart">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+
+
+                        }
+
+                    }
+                <div class="margin-top-50 col-md-4">
+                    <div class="card mb-4 shadow-sm">
+                        <div class="card-body">
+                            <p class="card-text">
+                                <font style="vertical-align: inherit;">
+                                    <div style="margin-top:80px">
+                                        @Html.ActionLink("Agregar", "AgregarProducto","Tienda")
+                                    </div>
+                                </font>
+                            </p>
+
+                        </div>
+                    </div>
+                </div>
+
+                </div>
+                <!-- /store products -->
+                <!-- store bottom filter -->
+                
+                <!-- /store bottom filter -->
+            </div>
+            <!-- /STORE -->
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /SECTION -->

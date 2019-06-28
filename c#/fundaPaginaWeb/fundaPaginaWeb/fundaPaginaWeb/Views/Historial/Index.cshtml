@@ -1,0 +1,36 @@
+﻿@model IEnumerable<fundaPaginaWeb.Models.Historial>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+    <section id="tabs" class="project-tab">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+
+                    <div style="margin-top:50px" id="nav-home" role="tabpanel">
+                        <table class="table" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>Producto Buscado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@item.nNomP</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+

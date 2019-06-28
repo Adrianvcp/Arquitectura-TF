@@ -1,0 +1,58 @@
+﻿<!-- SECTION -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+
+
+            <div class="col-md-7">
+                <!-- Billing Details -->
+                <div class="billing-details">
+
+                    <div class="section-title">
+                        <h3 class="title">Registro</h3>
+                    </div>
+                    @using (Html.BeginForm("AddProducto", "Tienda"))
+                    {
+                        <div class="">
+                            <div class="form-group">
+                                @Html.TextBox("Nombre", null, new { @class = "input" })
+                            </div>
+                            <div class="form-group">
+                                @Html.TextBox("Imagen", null, new { @class = "input" })
+                            </div>
+
+                            <div class="form-group">
+                                @Html.TextBox("Precio", null, new { @class = "input" })
+                            </div>
+
+
+                            <input type="submit" class="primary-btn order-submit" value="Agregar Producto" />
+
+                        </div>
+                    }
+                </div>
+
+
+            </div>
+
+
+
+            <!-- Order Details -->
+            <div class="col-md-4 order-details">
+                <div class="section-title text-center">
+                    <h3 class="title">¿Eres tienda y quieres vender con nosotros?</h3>
+                </div>
+                <div>
+                    @Html.ActionLink("Registrate Aqui", "FormularioTienda", "Registr", new { buscaProducto = "Accesorios" }, new { @class = "primary-btn order-submit" })
+
+                </div>
+
+            </div>
+            <!-- /Order Details -->
+            <!-- /row -->
+        </div>
+        <!-- /container -->
+    </div>
+    <!-- /SECTION -->

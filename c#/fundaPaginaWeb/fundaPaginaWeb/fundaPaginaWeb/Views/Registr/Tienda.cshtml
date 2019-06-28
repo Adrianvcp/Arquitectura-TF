@@ -1,0 +1,51 @@
+﻿
+@{
+    ViewBag.Title = "Tienda";
+}
+
+
+<!-- SECTION -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+
+           <!-- Order Details -->
+            <div class="col-md-8 order-details">
+                <div class="section-title text-center">
+                    <h3 class="title">Solicitud - Tienda</h3>
+                </div>
+                <div>
+                    @using (Html.BeginForm("Solicitud", "Registr"))
+                    {
+                        <div class="form-group">
+                            @Html.TextBox("RUC", null, new { @class = "input", @placeholder = "Ingrese su RUC" })
+                        </div>
+                        <div class="form-group">
+                            @Html.TextBox("corr", null, new { @class = "input", @placeholder = "Ingrese el correo" })
+                        </div>
+                        <div class="form-group">
+                            @Html.TextBox("ubc", null, new { @class = "input", @placeholder = "Ubicacion de la tienda" })
+                        </div>
+                        <div class="form-group">
+                            @Html.TextBox("desc", null, new { @class = "input", @placeholder = "Descripcion de la tienda" })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.TextBox("Logo", null, new { @class = "input", @placeholder = "Suba el logo de la tienda" })
+                        </div>
+
+
+                        <input type="submit" class="primary-btn order-submit" value="Registrate" />
+                    }
+                </div>
+            </div>
+            <!-- /Order Details -->
+            <!-- /row -->
+        </div>
+        <!-- /container -->
+    </div>
+</div>
+<!-- /SECTION -->
+

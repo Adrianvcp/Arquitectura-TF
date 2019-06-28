@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="cf2df903a94c40909c00722d4bfaf8ae" Name="Diagram1">
+        <EntityTypeShape EntityType="fasbdModel.Historial" Width="1.5" PointX="3" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="fasbdModel.ListaCompra" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="fasbdModel.ListaCompraXProducto" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="fasbdModel.ListaFavoritoProducto" Width="1.5" PointX="3" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="fasbdModel.Producto" Width="1.5" PointX="3" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="fasbdModel.ProductoXTienda" Width="1.5" PointX="5.25" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="fasbdModel.Promocion" Width="1.5" PointX="5.25" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="fasbdModel.promocionxTiendaProducto" Width="1.5" PointX="7.5" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="fasbdModel.Tienda" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="fasbdModel.Usuario" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <AssociationConnector Association="fasbdModel.Historial_Usuario" ManuallyRouted="false" />
+        <AssociationConnector Association="fasbdModel.ListaCompra_Tienda" ManuallyRouted="false" />
+        <AssociationConnector Association="fasbdModel.ListaCompra_Usuario" ManuallyRouted="false" />
+        <AssociationConnector Association="fasbdModel.ListaCompraXProducto_ListaCompra" ManuallyRouted="false" />
+        <AssociationConnector Association="fasbdModel.ListaCompraXProducto_Producto" ManuallyRouted="false" />
+        <AssociationConnector Association="fasbdModel.ListaFavoritoProducto_Producto" ManuallyRouted="false" />
+        <AssociationConnector Association="fasbdModel.ListaFavoritoProducto_Usuario" ManuallyRouted="false" />
+        <AssociationConnector Association="fasbdModel.TiendaXProducto_Producto" ManuallyRouted="false" />
+        <AssociationConnector Association="fasbdModel.ProductoXTienda_Tienda" ManuallyRouted="false" />
+        <AssociationConnector Association="fasbdModel.promocionxTiendaProducto_ProductoXTienda" ManuallyRouted="false" />
+        <AssociationConnector Association="fasbdModel.Table_12_Promocion" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="urfindModelStoreContainer" CdmEntityContainer="urfindEntities4">
+    <EntitySetMapping Name="Administrador">
+      <EntityTypeMapping TypeName="urfindModel.Administrador">
+        <MappingFragment StoreEntitySet="Administrador">
+          <ScalarProperty Name="idAdmin" ColumnName="idAdmin" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Cliente">
+      <EntityTypeMapping TypeName="urfindModel.Cliente">
+        <MappingFragment StoreEntitySet="Cliente">
+          <ScalarProperty Name="idCliente" ColumnName="idCliente" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ListaCompra">
+      <EntityTypeMapping TypeName="urfindModel.ListaCompra">
+        <MappingFragment StoreEntitySet="ListaCompra">
+          <ScalarProperty Name="idListaCompra" ColumnName="idListaCompra" />
+          <ScalarProperty Name="nNombre" ColumnName="nNombre" />
+          <ScalarProperty Name="idTienda" ColumnName="idTienda" />
+          <ScalarProperty Name="idAdmin" ColumnName="idAdmin" />
+          <ScalarProperty Name="idCliente" ColumnName="idCliente" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ListaCompraXProducto">
+      <EntityTypeMapping TypeName="urfindModel.ListaCompraXProducto">
+        <MappingFragment StoreEntitySet="ListaCompraXProducto">
+          <ScalarProperty Name="idListaCompra" ColumnName="idListaCompra" />
+          <ScalarProperty Name="idProducto" ColumnName="idProducto" />
+          <ScalarProperty Name="costoTotal" ColumnName="costoTotal" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Producto">
+      <EntityTypeMapping TypeName="urfindModel.Producto">
+        <MappingFragment StoreEntitySet="Producto">
+          <ScalarProperty Name="idProducto" ColumnName="idProducto" />
+          <ScalarProperty Name="nNombre" ColumnName="nNombre" />
+          <ScalarProperty Name="dImagen" ColumnName="dImagen" />
+          <ScalarProperty Name="nPrecio" ColumnName="nPrecio" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProductoXTienda">
+      <EntityTypeMapping TypeName="urfindModel.ProductoXTienda">
+        <MappingFragment StoreEntitySet="ProductoXTienda">
+          <ScalarProperty Name="idProducto" ColumnName="idProducto" />
+          <ScalarProperty Name="tDisponibilidad" ColumnName="tDisponibilidad" />
+          <ScalarProperty Name="idTienda" ColumnName="idTienda" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Promocion">
+      <EntityTypeMapping TypeName="urfindModel.Promocion">
+        <MappingFragment StoreEntitySet="Promocion">
+          <ScalarProperty Name="idPromocion" ColumnName="idPromocion" />
+          <ScalarProperty Name="NPromocion" ColumnName="NPromocion" />
+          <ScalarProperty Name="Descuento" ColumnName="Descuento" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="prueba">
+      <EntityTypeMapping TypeName="urfindModel.prueba">
+        <MappingFragment StoreEntitySet="prueba">
+          <ScalarProperty Name="idPr" ColumnName="idPr" />
+          <ScalarProperty Name="nnombre" ColumnName="nnombre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tienda">
+      <EntityTypeMapping TypeName="urfindModel.Tienda">
+        <MappingFragment StoreEntitySet="Tienda">
+          <ScalarProperty Name="tRUC" ColumnName="tRUC" />
+          <ScalarProperty Name="dUbicacion" ColumnName="dUbicacion" />
+          <ScalarProperty Name="tDescripcion" ColumnName="tDescripcion" />
+          <ScalarProperty Name="tLogo" ColumnName="tLogo" />
+          <ScalarProperty Name="idTienda" ColumnName="idTienda" />
+          <ScalarProperty Name="idAdmin" ColumnName="idAdmin" />
+          <ScalarProperty Name="Permiso" ColumnName="Permiso" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Usuario">
+      <EntityTypeMapping TypeName="urfindModel.Usuario">
+        <MappingFragment StoreEntitySet="Usuario">
+          <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+          <ScalarProperty Name="nCargo" ColumnName="nCargo" />
+          <ScalarProperty Name="nNombre" ColumnName="nNombre" />
+          <ScalarProperty Name="tContraseña" ColumnName="tContraseña" />
+          <ScalarProperty Name="tCorreo" ColumnName="tCorreo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="ListaFavoritoProducto" TypeName="urfindModel.ListaFavoritoProducto" StoreEntitySet="ListaFavoritoProducto">
+      <EndProperty Name="Cliente">
+        <ScalarProperty Name="idCliente" ColumnName="idCliente" />
+      </EndProperty>
+      <EndProperty Name="Producto">
+        <ScalarProperty Name="idProducto" ColumnName="idProducto" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ListaFavoritoTienda" TypeName="urfindModel.ListaFavoritoTienda" StoreEntitySet="ListaFavoritoTienda">
+      <EndProperty Name="Cliente">
+        <ScalarProperty Name="idCliente" ColumnName="idCliente" />
+      </EndProperty>
+      <EndProperty Name="Tienda">
+        <ScalarProperty Name="idTienda" ColumnName="idTienda" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="promocionxTiendaProducto" TypeName="urfindModel.promocionxTiendaProducto" StoreEntitySet="promocionxTiendaProducto">
+      <EndProperty Name="ProductoXTienda">
+        <ScalarProperty Name="idProducto" ColumnName="idProducto" />
+        <ScalarProperty Name="idTienda" ColumnName="idTienda" />
+      </EndProperty>
+      <EndProperty Name="Promocion">
+        <ScalarProperty Name="idPromocion" ColumnName="idPromocion" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>
